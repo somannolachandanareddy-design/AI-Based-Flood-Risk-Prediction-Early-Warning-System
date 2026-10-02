@@ -1,8 +1,5 @@
 # 🌊 Flood Risk Prediction & Satellite-Based Flood Mapping
 
-Prototype for this Project : (I want to share the images instead of directlink)
-
-
 
 An AI-powered system that combines **Machine Learning, Deep Learning, satellite imagery, and geospatial data** to predict flood risk, detect flooded regions, and provide an interactive visualization for early warning and disaster management.
 
