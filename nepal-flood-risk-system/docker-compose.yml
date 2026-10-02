@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: flood_db
+      POSTGRES_USER: flood_user
+      POSTGRES_PASSWORD: flood_pass
+    volumes:
+      - flood_pgdata:/var/lib/postgresql/data
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://flood_user:flood_pass@db:5432/flood_db
+      # GEE_PROJECT: your-gee-project-id   # uncomment for live satellite mode
+    depends_on:
+      - db
+    ports:
+      - "8002:8002"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  flood_pgdata:
